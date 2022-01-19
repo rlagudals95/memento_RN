@@ -4,8 +4,10 @@ import { customAxios } from "../../config/customAxios";
 import { config } from "../../config/confing";
 import axios from "axios";
 import Timezone from "../component/Timezone";
+import { useSelector } from 'react-redux'
 
 function Home() {
+  const birthday = useSelector((state) => state.user.birthday);
   const [maxim_ko, serMaxim_ko] = useState(null);
   const [maxim_en, setMaxim_en] = useState(null);
   const getMaxim = async () => {
@@ -26,6 +28,7 @@ function Home() {
   };
 
   useEffect(() => {
+    console.log('생일 :', birthday);
     getMaxim();
   }, []);
   return (
@@ -43,12 +46,6 @@ const FlexBox = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-`;
-
-const TimeBox = styled.div`
-  font-weight: bolder;
-  font-size: 3wv;
-  margin-bottom: 10px;
 `;
 
 const EnBox = styled.div`

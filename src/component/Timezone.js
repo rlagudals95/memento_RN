@@ -25,17 +25,14 @@ function Timezone() {
         setInterval(function() {
             let _dday = dday.getTime(); // 
             _birthday++
-            //let today = new Date().getTime();
+
             let gap = _dday - _birthday;
-            console.log('이걸로 차이를 : ',gap);
-            
             let day = Math.ceil(gap / (1000 * 60 * 60 * 24));
             let hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             let min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
             let sec = Math.ceil((gap % (1000 * 60)) / 1000);
             
-            let count = "죽음까지 " + day + "일" + hour + "시간 " + min + "분 " + sec + "초 남았습니다.";
-            console.log('날짜',count);
+            let count = "은퇴?까지 " + day + "일" + hour + "시간 " + min + "분 " + sec + "초 남았습니다.";
             setTime(gap);
         }, 1000);
 

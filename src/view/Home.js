@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { customAxios } from "../../config/customAxios";
 import { config } from "../../config/confing";
 import axios from "axios";
+import Timezone from "../component/Timezone";
 
 function Home() {
   const [maxim_ko, serMaxim_ko] = useState(null);
@@ -29,7 +30,7 @@ function Home() {
   }, []);
   return (
     <FlexBox>
-      명언들..
+      <Timezone/>
       <EnBox>{maxim_en}</EnBox>
       <KoBox>{maxim_ko}</KoBox>
     </FlexBox>
@@ -42,6 +43,12 @@ const FlexBox = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+`;
+
+const TimeBox = styled.div`
+  font-weight: bolder;
+  font-size: 3wv;
+  margin-bottom: 10px;
 `;
 
 const EnBox = styled.div`

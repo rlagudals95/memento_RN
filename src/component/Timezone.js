@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 function Timezone() {
   const [time, setTime] = useState("loading...");
   const birthday = useSelector((state) => state.user.birthday);
-
+ 
   // const timeDifference = (_date1, _date2) => {
   //     const diffDate_1 = _date1 instanceof Date ? _date1 : new Date(_date1);
   //     const diffDate_2 = _date2 instanceof Date ? _date2 : new Date(_date2);

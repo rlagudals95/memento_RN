@@ -12,9 +12,6 @@ function Timezone() {
 
   //     const difference = diffDate_1.getTime() - diffDate_2.getTime();
 
-  //     return difference; // ms
-  // };
-
   useEffect(() => {
     let dday = new Date(birthday);
     //디데이 - 벌쓰데이  // - 현재 날짜++

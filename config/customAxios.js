@@ -7,3 +7,4 @@ export const customAxios = axios.create({
   //   access_token: cookies.get('access_token'),
   // },
 });
+

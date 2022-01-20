@@ -6,7 +6,7 @@ import axios from "axios";
 import Timezone from "../component/Timezone";
 import { useSelector } from 'react-redux'
 
-function Home() {
+function Home({history}) {
   const birthday = useSelector((state) => state.user.birthday);
   const [maxim_ko, serMaxim_ko] = useState(null);
   const [maxim_en, setMaxim_en] = useState(null);
@@ -27,8 +27,26 @@ function Home() {
     serMaxim_ko(res.data.message.result.translatedText);
   };
 
-  useEffect(() => {
-    console.log('생일 :', birthday);
+  const getUserInfo = () => {
+    console.log('현재 url :',  window.location.href.split('code=')[1]);
+ 
+    let authCode = window.location.href.split('code=')[1] ?  window.location.href.split('code=')[1]: "";
+    let reqDto = {
+      code : authCode,
+    };
+    if (authCode){
+      customAxios.post("/login/oauth_kakao", reqDto ).then((res)=> {
+        console.log('카카오 로그인 res : ',res);
+        
+          localStorage.setItem("Authorizaion", "Barear" + " " + res.data.accessToken )
+          localStorage.setItem("username", res.data.id)
+          history.push('/')
+            
+      }); 
+    }
+  }
+  useEffect(() => {  
+    getUserInfo();
     getMaxim();
   }, []);
   return (

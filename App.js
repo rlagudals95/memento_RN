@@ -9,6 +9,7 @@ import Router from './Router'
 import * as Font from 'expo-font'
 import {useEffect} from 'react'
 import { createBrowserHistory } from "history";
+import Navigation from './src/component/Navigation'
 
 
 const composeEnhancers =
@@ -39,6 +40,7 @@ export default function App() {
   return (
     <Provider store={store}>
         <View style={styles.container}>   
+          <Navigation/>
           <Router/>
           <StatusBar style="auto" />
           <AppBackgroud />     

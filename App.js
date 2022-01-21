@@ -3,13 +3,27 @@ import { StyleSheet, Text, View } from "react-native";
 import styled from "styled-components";
 import { Provider } from "react-redux";
 import thunk from 'redux-thunk'
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import allReducers from './reducers';
 import Router from './Router'
 import * as Font from 'expo-font'
 import {useEffect} from 'react'
+import { createBrowserHistory } from "history";
 
-const store = createStore(allReducers, applyMiddleware(thunk));
+
+const composeEnhancers =
+  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+      })
+    : compose;
+
+// 미들웨어에 history 추가
+// 스토어에 히스토리를 넣어주기
+export const history = createBrowserHistory();
+const middlewares = [thunk.withExtraArgument({ history: history })];
+const enhancer = composeEnhancers(applyMiddleware(...middlewares));
+const store = createStore(allReducers, enhancer);
 
 export default function App() {
 

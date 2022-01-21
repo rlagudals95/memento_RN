@@ -6,9 +6,12 @@ import axios from "axios";
 import Timezone from "../component/Timezone";
 import { useSelector } from "react-redux";
 
-function Home({ history }) {
+function Home() {
   const [maxim_ko, serMaxim_ko] = useState(null);
   const [maxim_en, setMaxim_en] = useState(null);
+  const birthday = useSelector((state) => state.user.birthday)
+  const nickname = localStorage.getItem('nickname')
+
   const getMaxim = async () => {
     console.log("명언?");
     axios
@@ -32,37 +35,13 @@ function Home({ history }) {
     serMaxim_ko(res.data.message.result.translatedText);
   };
 
-  const getUserInfo = () => {
-    console.log("현재 url :", window.location.href.split("code=")[1]);
-    let authCode = window.location.href.split("code=")[1]
-      ? window.location.href.split("code=")[1]
-      : "";
-    let reqDto = {
-      code: authCode,
-    };
-    if (authCode) {
-      customAxios.post("/login/oauth_kakao", reqDto).then((res) => {
-        console.log("카카오 로그인 res : ", res);
-        localStorage.setItem(
-          "Authorization",
-          "Barear" + " " + res.data.accessToken
-        );
-
-        axios.defaults.headers.common["Authorization"] =
-          localStorage.getItem("Authorization");
-
-        localStorage.setItem("username", res.data.id);
-        history.push("/mypage");
-      });
-    }
-  };
-
   useEffect(() => {
-    getUserInfo();
     getMaxim();
+    
   }, []);
   return (
     <FlexBox>
+      {nickname}님의 시간
       <Timezone />
       <EnBox>{maxim_en}</EnBox>
       <KoBox>{maxim_ko}</KoBox>
